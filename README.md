@@ -2,6 +2,8 @@
 An open source first-order MATLAB solver for conic programs with row sparsity. SOSADMM implements the alternating direction method of multipliers (ADMM) described in our paper 
 * Exploiting Sparsity of Coefficient Matching Conditions in Sum-of-Squares Programs using ADMM (included in the `doc/` folder)
 
+In particular, SOSADMM exploits the sparsity of the coefficient matching conditions when SOS programs are formulated in the usual monomial basis to reduce the computational costs of the ADMM algorithm (see the detailed discriptions in our paper).
+
 ## Description<a name="Description"></a>
 
 SOSADMM solves in the standard SDP in the primal vectorized form
