@@ -49,15 +49,15 @@ sosadmm(At,b,c,K,opts);
 %                              SDPs in arising in SOS programs
 % ---------------------------------------------------------------------------- %
 % qap9
-% fprintf('Testing the SDPLIB problem qap9 \n');
-% load(['examples',filesep,'qap9.mat'])
-% cdcs(At,b,c,K,opts);
-% 
-% 
-% % mcp250-1
-% fprintf('\nTesting the SDPLIB problem mcp250-1 \n');
-% load(['examples',filesep,'mcp250-1.mat'])
-% cdcs(At,b,c,K,opts);
+fprintf('Testing an SOS feasibility problem\n');
+load(['examples',filesep,'exSOS.mat'])
+sosadmm(At,b,c,K,opts);
+ 
+ 
+% mcp250-1
+fprintf('\nTesting an example of Finding Lyapunov functions \n');
+load(['examples',filesep,'exLyapunov.mat'])
+sosadmm(At,b,c,K,opts);
 
 
 % ---------------------------------------------------------------------------- %
