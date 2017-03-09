@@ -28,3 +28,18 @@ Note that the inputs and outputs are in the same format used by SeDuMi.
 
 ## Contact us<a name="Contacts"></a>
 To contact us about SOSADMM, suggest improvements and report bugs, please feel free to email [Yang Zheng](mailto:yang.zheng@eng.ox.ac.uk?Subject=CDCS).
+
+## How to cite<a name="References"></a>
+
+If you find CDCS useful, please cite at least one of the following papers as appropriate:
+
+```
+@article{{ZFP2017,
+    archivePrefix= {arXiv},
+    eprint       = {arXiv:1703.01969},
+    primaryClass = "math-OC",
+    author       = {Zheng, Yang and Fantuzzi, Giovanni and Papachristodoulou},
+    title        = {Exploiting Sparsity of Coefficient Matching Conditions in Sum-of-Squares Programming using {ADMM}}
+    }
+
+```
