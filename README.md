@@ -25,3 +25,6 @@ SOSADMM is called with the syntax
 	
 where `At` is the transpose of the matrix `A` in problem (1) above. 
 Note that the inputs and outputs are in the same format used by SeDuMi. 
+
+## Contact us<a name="Contacts"></a>
+To contact us about SOSADMM, suggest improvements and report bugs, please feel free to email [Yang Zheng](mailto:yang.zheng@eng.ox.ac.uk?Subject=CDCS).
