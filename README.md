@@ -31,7 +31,7 @@ To contact us about SOSADMM, suggest improvements and report bugs, please feel f
 
 ## How to cite<a name="References"></a>
 
-If you find CDCS useful, please cite at least one of the following papers as appropriate:
+If you find SOSADMM useful, please cite the following paper:
 
 ```
 @article{{ZFP2017,
