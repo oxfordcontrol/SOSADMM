@@ -16,7 +16,7 @@ cd examples
 %           SDP with row sparsity
 % ---------------------------------------------------------------------------- %
 % Parameters
-m = 500;                    % # constraints
+m = 500;                     % # constraints
 n = 200;                     % 
 density = 1.e-3;
 
@@ -50,14 +50,16 @@ sosadmm(At,b,c,K,opts);
 % ---------------------------------------------------------------------------- %
 %                              SDPs in arising in SOS programs
 % ---------------------------------------------------------------------------- %
-% qap9
+% exSOS
 fprintf('Testing an SOS feasibility problem\n');
+pause(1)
 load(['examples',filesep,'exSOS.mat'])
 sosadmm(At,b,c,K,opts);
  
  
-% mcp250-1
+% exLyapunov
 fprintf('\nTesting an example of Finding Lyapunov functions \n');
+pause(1)
 load(['examples',filesep,'exLyapunov.mat'])
 sosadmm(At,b,c,K,opts);
 

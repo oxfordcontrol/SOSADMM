@@ -9,9 +9,6 @@ function [x,y,cost,info] = sosadmm(At,b,c,K,options)
 %% Set user options
 opts = setSOSADMMopts;
 if nargin > 4
-% GF: setstructfields not an essential function in MATLAB, it comes with one
-% package and users (including me) might not have it.
-%     opts = setstructfields(opts,options);
     opts = setUserOpts(opts,options);
 end
 
@@ -41,7 +38,7 @@ fprintf('Second-order cones     : %i (max. size: %i)\n',length(K.q),max(K.q));
 fprintf('Semidefinite cones     : %i (max. size: %i)\n',length(K.s),max(K.s));
 fprintf('Affine constraints     : %i                \n',m);
 fprintf('Non-zero elements      : %i                \n',sum(nnzR));
-fprintf('Non-zero density       :%10.3e            \n',sum(nnzR)/m/n);
+fprintf('Non-zero density       :%10.3e             \n',sum(nnzR)/m/n);
 fprintf([myline1,'\n'])
 
 %% Iterations of ADMM
@@ -58,8 +55,8 @@ xi = zeros(n,1);
 dresi = zeros(opts.Max_iter,1);       %% dual residual
 presi = zeros(opts.Max_iter,1);       %% primal residual
 pcost = zeros(opts.Max_iter,1);       %% primal cost
-dcost = zeros(opts.Max_iter,1);       %% dual cost
-gap   = zeros(opts.Max_iter,1);       %% duality gap
+%dcost = zeros(opts.Max_iter,1);       %% dual cost
+%gap   = zeros(opts.Max_iter,1);       %% duality gap
 
 %% output information
 linetitle = ' iter |   presi   |   dresi   |   cost(c*x) |    rho    |   time (s) \n';
@@ -86,7 +83,7 @@ for iter = 1 : opts.Max_iter
     dresi(iter) = dres;
     %gap(iter)   = abs(pcost(iter) - dcost(iter))/(1 + abs(pcost(iter)) + abs(dcost(iter)));
        
-    %% whether to stop && output information 
+    %% stop && output information 
     if opts.verbose && (iter == 1 || ~mod(iter,opts.dispIter) || isConverged)
         fprintf('%5d |  %8.2e |  %8.2e |  %10.3e |  %8.2e |   %8.2e\n',...
             iter,pres,dres,pcost(iter),opts.rho, toc(admmtime))
@@ -181,7 +178,7 @@ fprintf([myline,'\n'])
        xtmp  = x(Hind);
        Omega = (-b + sbA*(xtmp-mu/rho))./normAi;
              
-       tmp = repval(nzA,Omega,nzAind); %% using a mex function
+       tmp = repval(nzA,Omega,nzAind); %% using a mex function, which is much faster
 %        tmp = zeros(size(nzA));
 %        for i = 1:m
 %            tmp(nzAind(i)+1:nzAind(i+1)) = nzA(nzAind(i)+1:nzAind(i+1))*Omega(i);
@@ -198,6 +195,10 @@ fprintf([myline,'\n'])
 
     function [isConverged,pres,dres] = ConverCheck(z_n,x_n,zt_n,z,zt,xtmp,mu,xi)
         persistent itPinf itDinf
+        if isempty(itPinf) || isempty(itDinf)
+            itPinf = 0;
+            itDinf = 0;
+        end
         %Use the basic convergence test in the Boyd survey paper
 
         rho = opts.rho;
@@ -217,14 +218,6 @@ fprintf([myline,'\n'])
         end
 
         % Update penalty parameter
-%         if opts.adaptive
-%             resRat = pres/dres;
-%             if resRat > opts.mu
-%                 opts.rho = opts.rho*opts.tau;
-%             elseif 1/resRat > opts.mu
-%                 opts.rho = opts.rho/opts.tau;
-%             end
-%         end
         if opts.adaptive
             resRat = pres/dres;
             if resRat > opts.mu

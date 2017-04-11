@@ -1,9 +1,11 @@
 
-clc;clear
+
 %% Motzkin polynomial 
 % f(X,Y) = X^4Y^2 + X^2Y^4 ? 3*X^2Y^2 + 1
 % This function is non-negative but not an SOS
 % The performance of our algorithm is not good
+
+clc;clear
 
 Maxiter = 1e3;
 Tol     = 1e-4;
@@ -30,7 +32,7 @@ opts.solver = 'primal';
 opts.maxIter = Maxiter;
 [x2,y2,z2,info2] = cdcs(A',b,c,K,opts);
 
-Cost = [c'*x, c'*x1, c'*x2]
-Time = [info.wallsec,info1.time.total,info2.time.total]
-
+%% Statistics
+Cost  = [c'*x, c'*x1, c'*x2]
+Time  = [info.wallsec,info1.time.total,info2.time.total]
 Error = (Cost - Cost(1))./Cost(1)

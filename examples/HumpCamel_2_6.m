@@ -1,8 +1,15 @@
 
-clc;clear
-%% The classical problem of minimizing globally the two-dimensional six-hump camel back function
-% f(x1,x2) = x_1^2(4 - 2.1 x_1^2 + x_1^4/3) + x_1x_2+x_2^2(-4+4x_2^2)
 
+%% The classical problem of minimizing globally the two-dimensional
+%  six-hump camel back function
+%  f(x1,x2) = x_1^2(4 - 2.1 x_1^2 + x_1^4/3) + x_1x_2+x_2^2(-4+4x_2^2)
+
+%  To run this example, the following packages are required
+%  1. GloptiPoly (Genertate the problem)
+%  2. SeDuMi     (Interior-point method, for comparsion)
+%  3. CDCS       (First-order method, for comparsion)
+
+clc;clear
 Maxiter = 1e3;
 Tol     = 1e-4;
 
@@ -28,9 +35,9 @@ opts.solver = 'primal';
 opts.maxIter = Maxiter;
 [x2,y2,z2,info2] = cdcs(A',b,c,K,opts);
 
+%% statistics
 Cost = [c'*x, c'*x1, c'*x2]
 Time = [info.wallsec,info1.time.total,info2.time.total]
-
 Error = (Cost - Cost(1))./Cost(1)
 
     

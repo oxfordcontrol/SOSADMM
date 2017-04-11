@@ -1,18 +1,24 @@
 
 %% Example 1: Testing random unconstrained POP f(x)
 
+%  To run this example, the following packages are required
+%  1. GloptiPoly (Genertate the problem, essentail)
+%  2. SeDuMi     (Interior-point method, for comparsion)
+%  3. CDCS       (First-order method, for comparsion)
+%  4. SCS        (First-order method, for comparsion, optional)
+
 clear;
 
-N = 2:2:20;   % number of variables
+N = 2:2:10;   % number of variables
 d = 2;        % half degree of the polynomial
 
 TimePro = zeros(length(N),1);     % time for problem generation
-TimeTotal = zeros(length(N),4);   % sedumi, sosadmm, cdcs(primal), scs(direct)
-TimeSetup = zeros(length(N),3);   % sosadmm, cdcs(primal), scs(direct)
-TimeADMM = zeros(length(N),3);
-TimeAver = zeros(length(N),3);
-Cost = zeros(length(N),4);
-Iter = zeros(length(N),4);
+TimeTotal = zeros(length(N),3);   % sedumi, sosadmm, cdcs(primal), scs(direct)
+TimeSetup = zeros(length(N),2);   % sosadmm, cdcs(primal), scs(direct)
+TimeADMM = zeros(length(N),2);
+TimeAver = zeros(length(N),2);
+Cost = zeros(length(N),3);
+Iter = zeros(length(N),3);
 Density = zeros(length(N),3);
 
 data = cell(length(N),1);
@@ -56,16 +62,16 @@ for i = 1:length(N)
     opts.maxIter = Maxiter;
     [x2,y2,z2,info2] = cdcs(A',b,c,K,opts);
     
-    % by SCS
-    params.max_iters = Maxiter;
-    params.eps = Tol;
-    [x3,y3,cscs,info3] = solveWithSCSdirect(A',full(b),full(c),K,params);
+%     % by SCS
+%     params.max_iters = Maxiter;
+%     params.eps = Tol;
+%     [x3,y3,cscs,info3] = solveWithSCSdirect(A',full(b),full(c),K,params);
     
     %% statistics
-    TimeTotal(i,:) = [info.wallsec,info1.time.total,info2.time.total,(info3.solveTime+info3.setupTime)/1e3];   
-    TimeSetup(i,:) = [info1.time.data,info2.time.setup,info3.setupTime/1e3]; 
-    TimeADMM(i,:) = [info1.time.admm,info2.time.admm,info3.solveTime/1e3]; 
-    Cost(i,:) = [c'*x,c'*x1,c'*x2,cscs];
-    Iter(i,:) = [info.iter,info1.iter,info2.iter,info3.iter];
+    TimeTotal(i,:) = [info.wallsec,info1.time.total,info2.time.total];   
+    TimeSetup(i,:) = [info1.time.data,info2.time.setup]; 
+    TimeADMM(i,:) = [info1.time.admm,info2.time.admm]; 
+    Cost(i,:) = [c'*x,c'*x1,c'*x2];
+    Iter(i,:) = [info.iter,info1.iter,info2.iter];
     TimeAver(i,:)  = TimeADMM(i,:)./Iter(i,2:end);
 end
