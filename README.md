@@ -10,7 +10,7 @@ SOSADMM solves in the standard SDP in the primal vectorized form
 
 		minimize 	c'x						
 	(1)	subject to	Ax = b,					
-					x \in K							
+				x \in K							
 
 SOSADMM supports cartesian products of the following cones:
 
