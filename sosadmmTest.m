@@ -9,6 +9,8 @@ function sosadmmTest
 clc;
 opts.maxIter = 1e+3;
 opts.relTol  = 1e-3;
+here = pwd;
+cd examples
 
 % ---------------------------------------------------------------------------- %
 %           SDP with row sparsity
@@ -63,6 +65,7 @@ sosadmm(At,b,c,K,opts);
 % ---------------------------------------------------------------------------- %
 %                                   END
 % ---------------------------------------------------------------------------- %
+cd(here);
 fprintf('\n\nSOSADMM was successfully tested.\n\n')
 end
 
