@@ -39,7 +39,7 @@ If you find SOSADMM useful, please cite the following paper:
     eprint       = {arXiv:1703.01969},
     primaryClass = "math-OC",
     author       = {Zheng, Yang and Fantuzzi, Giovanni and Papachristodoulou},
-    title        = {Exploiting Sparsity of Coefficient Matching Conditions in Sum-of-Squares Programming using {ADMM}}
+    title        = {Exploiting Sparsity in the Coefficient Matching Conditions in Sum-of-Squares Programming using {ADMM}}
     }
 
 ```
